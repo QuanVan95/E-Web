@@ -52,14 +52,14 @@
                     <h3 class="uppercase">Pages</h3>
                 </li>
                 <li class="nav-item  ">
-                    <a href="javascript:;" class="nav-link nav-toggle">
+                    <a href="{{ route('postCate.index') }}" class="nav-link nav-toggle">
                         <i class="icon-basket"></i>
                         <span class="title">eCommerce</span>
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu">
                         <li class="nav-item  ">
-                            <a href="ecommerce_index.html" class="nav-link ">
+                            <a href="{{ route('postCate.index') }}" class="nav-link ">
                                 <i class="icon-home"></i>
                                 <span class="title">Dashboard</span>
                             </a>

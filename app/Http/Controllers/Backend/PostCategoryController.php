@@ -10,11 +10,6 @@ use File;
 
 class PostCategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $postCates = PostCategory::orderBy('id', 'desc')->paginate(10);
@@ -26,26 +21,15 @@ class PostCategoryController extends Controller
                 }
             }
         }
-        return view('metronic.post_categories.index', compact('postCates'));
+        return view('admin.post_categories.index', compact('postCates'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $postCates = PostCategory::all();
-        return view('metronic.post_categories.create', compact('postCates'));
+        return view('admin.post_categories.create', compact('postCates'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $data = $request->all();
@@ -71,17 +55,11 @@ class PostCategoryController extends Controller
         return redirect(route('postCate.index'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $postCate = PostCategory::find($id);
         if(!$postCate){
-            return response()->view('metronic.errors.404', [], 404);
+            return response()->view('admin.errors.404', [], 404);
         }
         $postCates = PostCategory::all();
         foreach ($postCates as $key => $value){
@@ -89,32 +67,19 @@ class PostCategoryController extends Controller
                 unset($postCates[$key]);
             }
         }
-        return view('metronic.post_categories.detail', compact(['postCate','postCates']));
+        return view('admin.post_categories.detail', compact(['postCate','postCates']));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $postCate = PostCategory::find($id);
         if(!$postCate){
-            return response()->view('metronic.errors.404', [], 404);
+            return response()->view('admin.errors.404', [], 404);
         }
         $data = $request->all();
         if($data['description']){
@@ -139,17 +104,11 @@ class PostCategoryController extends Controller
         return back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $postCate = PostCategory::find($id);
         if(!$postCate){
-            return response()->view('metronic.errors.404', [], 404);
+            return response()->view('admin.errors.404', [], 404);
         }
         $postCate->delete();
         Session::flash('success', 'Cập nhật thành công!');
