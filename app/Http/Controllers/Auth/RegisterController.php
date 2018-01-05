@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -27,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -45,13 +47,27 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+    public function showRegistrationForm()
+    {
+        return view('admin.auth.register');
+    }
+
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+        $validator = Validator::make($data, [
+            'name' => 'required',
+            'email' => 'required|string|email|unique:users',
+            'password' => 'required|confirmed',
+        ],
+        [
+            'name.required'      => 'Name is required',
+            'email.required'     => 'Email is required',
+            'email.email'        => 'Email is invalid',
+            'password.required'  => 'Password is required',
+            'password.confirmed' => 'Password confirmation does not match',
+        ]
+        );
+        return $validator;
     }
 
     /**
@@ -60,12 +76,24 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function register(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+        $validator = $this->validator($request->all());
+        if($validator->fails()){
+          return back()->withErrors($validator);
+        };
+
+        $register = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
         ]);
+
+        if($register){
+            Session::flash('success', 'Register successfully');
+            return redirect(route('login'));
+        }else{
+            return back()->withErrors(['message' => 'Error Register']);
+        }
     }
 }
