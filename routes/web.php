@@ -65,14 +65,6 @@ Route::group(['middleware' => 'validateBackHistory'], function () {
             Route::post('/update/{id}', ['as' => 'postCate.update', 'uses' => 'Backend\PostCategoryController@update']);
             Route::get('/{id}',['as' => 'postCate.delete', 'uses' => 'Backend\PostCategoryController@destroy']);
         });
-        Route::group(['prefix' => 'menus'], function (){
-            Route::get('/', ['as' => 'menu.index', 'uses' => 'Backend\MenuController@index']);
-            Route::get('/create', ['as' => 'menu.create', 'uses' => 'Backend\MenuController@create']);
-            Route::get('/detail/{id}', ['as' => 'menu.detail', 'uses' => 'Backend\MenuController@show']);
-            Route::post('/add', ['as' => 'menu.add', 'uses' => 'Backend\MenuController@store']);
-            Route::post('/update/{id}', ['as' => 'menu.update', 'uses' => 'Backend\MenuController@update']);
-            Route::get('/{id}',['as' => 'menu.delete', 'uses' => 'Backend\MenuController@destroy']);
-        });
         Route::group(['prefix' => 'member'], function (){
             Route::get('/', ['as' => 'member.index', 'uses' => 'Backend\MemberController@index']);
             Route::get('/create', ['as' => 'member.create', 'uses' => 'Backend\MemberController@create']);
@@ -80,14 +72,6 @@ Route::group(['middleware' => 'validateBackHistory'], function () {
             Route::post('/add', ['as' => 'member.add', 'uses' => 'Backend\MemberController@store']);
             Route::post('/update/{id}', ['as' => 'member.update', 'uses' => 'Backend\MemberController@update']);
             Route::get('/{id}',['as' => 'member.delete', 'uses' => 'Backend\MemberController@destroy']);
-        });
-        Route::group(['prefix' => 'staff'], function (){
-            Route::get('/', ['as' => 'staff.index', 'uses' => 'Backend\StaffController@index']);
-            Route::get('/create', ['as' => 'staff.create', 'uses' => 'Backend\StaffController@create']);
-            Route::get('/detail/{id}', ['as' => 'staff.detail', 'uses' => 'Backend\StaffController@show']);
-            Route::post('/add', ['as' => 'staff.add', 'uses' => 'Backend\StaffController@store']);
-            Route::post('/update/{id}', ['as' => 'staff.update', 'uses' => 'Backend\StaffController@update']);
-            Route::get('/{id}',['as' => 'staff.delete', 'uses' => 'Backend\StaffController@destroy']);
         });
     });
 });
