@@ -21,35 +21,45 @@ License: You must have a valid license purchased only from themeforest(the above
 @include('admin.layouts.partials.head')
 <!-- END HEAD -->
 
-<body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-content-white">
-<div class="page-wrapper">
+<body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
     <!-- BEGIN HEADER -->
-    @include('admin.layouts.partials.header')
-    @include('admin.layouts.partials.sidebar')
+    <div class="page-header navbar navbar-fixed-top">
+        @include('admin.layouts.partials.header')
+    </div>
     <!-- END HEADER -->
     <!-- BEGIN HEADER & CONTENT DIVIDER -->
     <div class="clearfix"> </div>
     <!-- END HEADER & CONTENT DIVIDER -->
-    <!-- BEGIN CONTAINER -->
-    <div class="page-container">
-        <!-- BEGIN SIDEBAR -->
+    <!-- BEGIN CONTENT -->
 
-        <!-- END SIDEBAR -->
-        <!-- BEGIN CONTENT -->
-        <div class="page-content-wrapper">
-            <!-- BEGIN CONTENT BODY -->
-            <div class="page-content">
-                @yield('main-content')
-            </div>
-            <!-- END CONTENT BODY -->
+        <!-- BEGIN CONTENT BODY -->
+    <div class="page-container">
+                <!-- BEGIN SIDEBAR -->
+        <div class="page-sidebar-wrapper">
+            @include('admin.layouts.partials.sidebar')
         </div>
-        <!-- END CONTENT -->
-    </div>
-    <!-- END CONTAINER -->
+        <div class="page-content-wrapper">
+            @yield('main-content')
+        </div>
+            <!-- END SIDEBAR -->
+                <!-- BEGIN CONTENT -->
+                {{--<div class="page-content-wrapper">--}}
+                    {{--<!-- BEGIN CONTENT BODY -->--}}
+                    {{--<div class="page-content">--}}
+                        {{----}}
+                    {{--</div>--}}
+                    {{--<!-- END CONTENT BODY -->--}}
+                {{--</div>--}}
+                <!-- END CONTENT -->
+        <!-- END CONTENT BODY -->
+    <!-- END CONTENT -->
     <!-- BEGIN FOOTER -->
-    @include('admin.layouts.partials.footer')
     <!-- END FOOTER -->
-</div>
+    </div>
+    <div class="page-footer">
+        @include('admin.layouts.partials.footer')
+    </div>
+
 @include('admin.layouts.partials.scripts')
 </body>
 
