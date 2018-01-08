@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PostCategory extends Model
+class Module extends Model
 {
     protected $table = 'modules';
     public $fillable = [

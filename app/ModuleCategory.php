@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PostCategory extends Model
+class ModuleCategory extends Model
 {
-    protected $table = 'post_categories';
+    protected $table = 'module_categories';
     public $fillable = [
             'name', 'description', 'created_by', 'updated_by'
     ];

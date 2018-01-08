@@ -20,7 +20,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item start active open">
-                        <a href="" class="nav-link ">
+                        <a href="{{route('moduleCate.index')}}" class="nav-link ">
                             <i class="fa fa-bars"></i>
                             <span class="title">Module Category</span>
                             <span class="selected"></span>

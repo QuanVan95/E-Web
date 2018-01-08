@@ -13,11 +13,11 @@ class CreateModuleVersionsTable extends Migration
             $table->text('name')->nullable();
             $table->text('description')->nullable();
             $table->float('version')->nullable();
-            $table->integer('status');
-            $table->text('attribute');
-            $table->text('api');
-            $table->integer('created_by');
-            $table->integer('updated_by');
+            $table->integer('status')->default(0);
+            $table->text('attribute')->nullable();
+            $table->text('api')->nullable();
+            $table->integer('created_by')->default(0);
+            $table->integer('updated_by')->default(0);
             $table->timestamps();
         });
     }

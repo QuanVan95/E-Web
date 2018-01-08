@@ -34,27 +34,14 @@ License: You must have a valid license purchased only from themeforest(the above
 
         <!-- BEGIN CONTENT BODY -->
     <div class="page-container">
-                <!-- BEGIN SIDEBAR -->
+        <!-- BEGIN SIDEBAR -->
         <div class="page-sidebar-wrapper">
             @include('admin.layouts.partials.sidebar')
         </div>
+        <!-- END SIDEBAR -->
         <div class="page-content-wrapper">
             @yield('main-content')
         </div>
-            <!-- END SIDEBAR -->
-                <!-- BEGIN CONTENT -->
-                {{--<div class="page-content-wrapper">--}}
-                    {{--<!-- BEGIN CONTENT BODY -->--}}
-                    {{--<div class="page-content">--}}
-                        {{----}}
-                    {{--</div>--}}
-                    {{--<!-- END CONTENT BODY -->--}}
-                {{--</div>--}}
-                <!-- END CONTENT -->
-        <!-- END CONTENT BODY -->
-    <!-- END CONTENT -->
-    <!-- BEGIN FOOTER -->
-    <!-- END FOOTER -->
     </div>
     <div class="page-footer">
         @include('admin.layouts.partials.footer')
