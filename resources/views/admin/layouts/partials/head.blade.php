@@ -12,6 +12,7 @@
     <link href="{{ asset('css/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/bootstrap-switch.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('plugins/bootstrap-sweetalert/sweetalert.css') }}" rel="stylesheet" type="text/css" /> //Using for confirming to delete
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN THEME GLOBAL STYLES -->
@@ -23,6 +24,7 @@
     <link href="{{ asset('css/layout.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/default.min.css') }}" rel="stylesheet" type="text/css" id="style_color" />
     <link href="{{ asset('css/custom.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
 
     <link rel="shortcut icon" href="favicon.ico" />

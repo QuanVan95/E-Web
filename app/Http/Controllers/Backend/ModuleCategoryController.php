@@ -33,25 +33,8 @@ class ModuleCategoryController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        if($data['description']){
-            $a = str_replace('<p>', '', $data['description']);
-            $b = str_replace('</p>', '', $a);
-            $data['description'] = $b;
-        }
-        $file = $request->file('image');
-        if($file){
-            $file_name = time() . '_' . $file->getClientOriginalName();
-            $data['image'] = $file_name;
-            $file->move(base_path().'/public/images/module_cates', $file_name);
-        }
-        if(isset($data['active'])){
-            $data['active'] = 1;
-        }
-        else{
-            $data['active'] = 0;
-        }
         ModuleCategory::create($data);
-        Session::flash('success', 'Cập nhật thành công!');
+        Session::flash('success', 'Create Module Category Successfully!');
         return redirect(route('moduleCate.index'));
     }
 
@@ -70,11 +53,6 @@ class ModuleCategoryController extends Controller
         return view('admin.module_categories.detail', compact(['moduleCate','moduleCates']));
     }
 
-    public function edit($id)
-    {
-        //
-    }
-
     public function update(Request $request, $id)
     {
         $moduleCate = ModuleCategory::find($id);
@@ -82,25 +60,8 @@ class ModuleCategoryController extends Controller
             return response()->view('admin.errors.404', [], 404);
         }
         $data = $request->all();
-        if($data['description']){
-            $a = str_replace('<p>', '', $data['description']);
-            $b = str_replace('</p>', '', $a);
-            $data['description'] = $b;
-        }
-        $file = $request->file('image');
-        if($file){
-            $file_name = time() . '_' . $file->getClientOriginalName();
-            $data['image'] = $file_name;
-            $file->move(base_path().'/public/images/module_cates', $file_name);
-        }
-        if(isset($data['active'])){
-            $data['active'] = 1;
-        }
-        else{
-            $data['active'] = 0;
-        }
         $moduleCate->update($data);
-        Session::flash('success', 'Cập nhật thành công!');
+        Session::flash('success', 'Update Successfully!');
         return back();
     }
 
@@ -111,7 +72,7 @@ class ModuleCategoryController extends Controller
             return response()->view('admin.errors.404', [], 404);
         }
         $moduleCate->delete();
-        Session::flash('success', 'Cập nhật thành công!');
+        Session::flash('success', 'Delete Successfully!');
         return back();
     }
 }

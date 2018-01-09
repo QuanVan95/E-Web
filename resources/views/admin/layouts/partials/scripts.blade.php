@@ -13,6 +13,7 @@
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script src="{{ asset('js/moment.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('plugins/bootstrap-growl/jquery.bootstrap-growl.js')}}" type="text/javascript"></script>
 <script src="{{ asset('js/daterangepicker.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/morris.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/raphael-min.js') }}" type="text/javascript"></script>
@@ -42,6 +43,7 @@
 <script src="{{ asset('js/jquery.vmap.germany.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/jquery.vmap.usa.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/jquery.vmap.sampledata.js') }}" type="text/javascript"></script>
+<script src="{{ asset('plugins/bootstrap-sweetalert/sweetalert.min.js')}}" type="text/javascript"></script> //Using for confirming to delete
 <script src="{{ asset('js/fileup.js') }}" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
@@ -244,16 +246,16 @@
             return false;
         return true;
     }
-    @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+    @foreach (['danger', 'warning', 'success', 'info'] as $msg)  //using jquery.bootstrap-growl.js'
         @if(Session::has($msg))
-        $.bootstrapGrowl('{!! Session::get($msg) !!}', {
+        $.bootstrapGrowl('{!! Session::get($msg) !!}', { // Get value of the message
             ele: 'body', // which element to append to
             type: '{{ $msg }}', // (null, 'info', 'danger', 'success', 'warning')
             offset: {
-                from: 'bottom',
-                amount: 50
+                from: 'top',
+                amount: 81
             }, // 'top', or 'bottom'
-            align: 'left', // ('left', 'right', or 'center')
+            align: 'right', // ('left', 'right', or 'center')
             width: 'integer', // (integer, or 'auto')
             delay: 5000, // Time while the message will be displayed. It's not equivalent to the *demo* timeOut!
             allow_dismiss: true, // If true then will display a cross to close the popup.
