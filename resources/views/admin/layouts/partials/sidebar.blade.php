@@ -27,7 +27,7 @@
                         </a>
                     </li>
                     <li class="nav-item start ">
-                        <a href="" class="nav-link ">
+                        <a href="{{route('module.index')}}" class="nav-link ">
                             <i class="icon-bulb"></i>
                             <span class="title">Module</span>
                             <span class="badge badge-success"></span>

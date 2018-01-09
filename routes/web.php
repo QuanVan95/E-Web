@@ -73,6 +73,14 @@ Route::group(['middleware' => 'validateBackHistory'], function () {
             Route::post('/update/{id}', ['as' => 'moduleCate.update', 'uses' => 'Backend\ModuleCategoryController@update']);
             Route::get('/{id}',['as' => 'moduleCate.delete', 'uses' => 'Backend\ModuleCategoryController@destroy']);
         });
+        Route::group(['prefix' => 'modules'], function (){
+            Route::get('/', ['as' => 'module.index', 'uses' => 'Backend\ModuleController@index']);
+            Route::get('/create', ['as' => 'module.create', 'uses' => 'Backend\ModuleController@create']);
+            Route::get('/detail/{id}', ['as' => 'module.detail', 'uses' => 'Backend\ModuleController@show']);
+            Route::post('/add', ['as' => 'module.add', 'uses' => 'Backend\ModuleController@store']);
+            Route::post('/update/{id}', ['as' => 'module.update', 'uses' => 'Backend\ModuleController@update']);
+            Route::get('/{id}',['as' => 'module.delete', 'uses' => 'Backend\ModuleController@destroy']);
+        });
         Route::group(['prefix' => 'member'], function (){
             Route::get('/', ['as' => 'member.index', 'uses' => 'Backend\MemberController@index']);
             Route::get('/create', ['as' => 'member.create', 'uses' => 'Backend\MemberController@create']);
