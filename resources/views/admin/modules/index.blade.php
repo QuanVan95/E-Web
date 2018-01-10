@@ -8,9 +8,20 @@
                     <small>statistics, charts, recent events and reports</small>
                 </h1>
             </div>
-            <div class="btn-add">
-                <a class="btn btn-primary" href="{{ route('module.create') }}">Add </a>
-            </div>
+            <form action="{{ route('module.add') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                    {{csrf_field()}}
+                <div class="btn-add">
+                    <button type="submit" class="btn btn-primary" href="{{ route('module.create') }}">Add </button>
+                </div>
+                <div class="col-md-2 btn-add" >
+                    <select name="module_cate_id" class="form-control">
+                        <option value="0">- Choose Category-</option>
+                        @foreach($moduleCates as $value)
+                            <option value="{{ $value->id }}">{{ $value->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </form>
         </div>
         <!-- END PAGE HEAD-->
         <!-- BEGIN PAGE BASE CONTENT -->

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\ModuleCategory;
+use App\ModuleVersion;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Module;
@@ -14,6 +15,7 @@ class ModuleController extends Controller
     public function index()
     {
         $modules = Module::orderBy('id', 'desc')->paginate(10);
+        $moduleCates = ModuleCategory::all();
         foreach ($modules as $value){
             if($value->parent_id > 0){
                 $module = Module::find($value->parent_id);
@@ -22,7 +24,7 @@ class ModuleController extends Controller
                 }
             }
         }
-        return view('admin.modules.index', compact('modules'));
+        return view('admin.modules.index', compact(['modules', 'moduleCates']));
     }
 
     public function create()
@@ -34,11 +36,17 @@ class ModuleController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        $moduleCate = Module::create($data);
+       // Session::flash('success', 'Create Module Category Successfully!');
+        $moduleCates = ModuleCategory::all();
+        return view(route('admin.module.detail', compact('moduleCates')));
+//        if ($request->ajax()) {
+////            echo '<pre style="color:green;font-weight:bold;">';
+//         // $data = $request->all();
+//            $data['attribute'] = json_encode($data['list']);
+//            //return response($data['attribute']);
+//        }
 
-        dd($data);
-        Module::create($data);
-        Session::flash('success', 'Create Module Successfully!');
-        return redirect(route('module.index'));
     }
 
     public function show($id)

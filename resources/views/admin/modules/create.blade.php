@@ -46,29 +46,35 @@
                             <h2 align="center">Object Models/Resources</h2>
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="crud_table">
-                                    <tr>
-                                        <th >Property</th>
-                                        <th >Type</th>
-                                        <th >Description</th>
-                                        <th >Example Value(s)</th>
-                                        <th >Required/Defaults</th>
-                                        <th>F</th>
-                                        <th >C</th>
-                                        <th >I</th>
-                                    </tr>
-                                    <tr>
-                                        <td contenteditable="true" class="att_module"></td>
-                                        <td contenteditable="true" class="att_module"></td>
-                                        <td contenteditable="true" class="att_module"></td>
-                                        <td contenteditable="true" class="att_module"></td>
-                                        <td contenteditable="true" class="att_module"></td>
-                                        <td contenteditable="true" class="att_module"></td>
-                                        <td contenteditable="true" class="att_module"></td>
-                                        <td contenteditable="true" class="att_module"></td>
-                                    </tr>
+                                    <thead>
+                                        <tr>
+                                            <th >Property</th>
+                                            <th >Type</th>
+                                            <th >Description</th>
+                                            <th >Example Value(s)</th>
+                                            <th >Required/Defaults</th>
+                                            <th>F</th>
+                                            <th >C</th>
+                                            <th >I</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td contenteditable="true" class="property"></td>
+                                            <td contenteditable="true" class="type"></td>
+                                            <td contenteditable="true" class="attribute_description"></td>
+                                            <td contenteditable="true" class="example_value"></td>
+                                            <td contenteditable="true" class="required_default"></td>
+                                            <td contenteditable="true" class="f"></td>
+                                            <td contenteditable="true" class="c"></td>
+                                            <td contenteditable="true" class="r"></td>
+                                        </tr>
+                                    </tbody>
+
                                 </table>
                                 <div align="right">
                                     <button type="button" name="add" id='add' class="btn btn-success btn-xs">+</button>
+                                    <button type="button" name="ajax-add" id='add' class="ajax-add btn btn-success btn-xs">Add</button>
                                 </div>
                                 <div id="inserted_item_data"></div>
                             </div>
@@ -76,12 +82,11 @@
                             <div class="form-actions">
                                 <div class="row">
                                     <div class="col-md-offset-3 col-md-4">
-                                        <button type="submit" class="btn green">Create </button>
+                                        <button type="submit" class="btn green check">Create </button>
                                         <a href="{{ route('module.index') }}" class="btn default">Back </a>
                                     </div>
                                 </div>
                             </div>
-
                     </div>
                 </div>
             </div>

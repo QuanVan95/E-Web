@@ -63,6 +63,31 @@
     jQuery( function(){
         jQuery( document ).trigger( "enhance" );
     });
+
+    $(document).ready(function() {
+        $('.ajax-add').click(function() {
+            const list = [];
+            $('#crud_table tbody tr').each(function(i, e){
+                var property = $(this).find(".property").html();
+                var type = $(this).find(".type").html();
+                var attribute_description = $(this).find(".attribute_description").html();
+                var example_value = $(this).find(".example_value").html();
+                var required_default = $(this).find(".f").html();
+                var f = $(this).find(".f").html();
+                var c = $(this).find(".c").html();
+                var r = $(this).find(".r").html();
+                list.push({property:property, type:type, attribute_description:attribute_description,example_value:example_value, required_default:required_default, f:f, c:c, r:r });
+            });
+            $.ajax({
+                url: '{{ route('module.add') }}',
+                method: "POST",
+                data: {"list": list, "_token": "{{ csrf_token() }}"}, //Data send to server (Request)
+                success:function(data){   //Data receive from server (Response)
+                    console.log(data);
+                }
+            });
+        });
+    });
     $(document).ready(function() {
         $('#summernote').summernote({
             height: 500,
@@ -210,13 +235,13 @@
         if(charCode == 59 || charCode == 46)
             return true;
         if (charCode > 31 && (charCode < 48 || charCode > 57))
-            return false;
-        return true;
+            return true;
+        return false;
     }
+
     $(document).ready(function(){
         var count = 1;
         $('#add').click(function(){
-            console.log(1);
             count = count + 1;
             var html_code = "<tr id='row"+count+"'>";
             html_code += "<td contenteditable='true' class='property'></td>";
@@ -282,6 +307,7 @@
         }
         fetch_item_data();
     });
+
     @foreach (['danger', 'warning', 'success', 'info'] as $msg)  //using jquery.bootstrap-growl.js'
         @if(Session::has($msg))
         $.bootstrapGrowl('{!! Session::get($msg) !!}', { // Get value of the message
