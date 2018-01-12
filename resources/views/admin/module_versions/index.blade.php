@@ -11,7 +11,7 @@
             <form action="{{ route('module.add') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
                     {{csrf_field()}}
                 <div class="btn-add">
-                    <button type="submit" class="btn btn-primary">Add </button>
+                    <button type="submit" class="btn btn-primary" href="{{ route('module.create') }}">Add </button>
                 </div>
                 <div class="col-md-2 btn-add" >
                     <select name="module_cate_id" class="form-control">
@@ -42,19 +42,19 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {{--@foreach($modules as $key => $value)--}}
-                                    {{--<tr>--}}
-                                        {{--<td>{{ $key + 1 }}</td>--}}
-                                        {{--<td>{{ $value->module->name }}</td>--}}
-                                        {{--<td>{{ $value->module->description}}</td>--}}
-                                        {{--<td>{{ $value->module->status}}</td>--}}
-                                        {{--<td>{{ $value->module->version}}</td>--}}
-                                        {{--<td>--}}
-                                            {{--<a class ="btn btn-primary btn-sm btn-detail" href="{{ route('module.detail',$value->id )}}"><i class ="fa fa-pencil"></i></a>--}}
-                                            {{--<a class ="btn btn-danger btn-sm btn-delete" onclick="return onDelete('{{ route('module.delete', $value->id)}}')"><i class ="fa fa-close"></i></a>--}}
-                                        {{--</td>--}}
-                                    {{--</tr>--}}
-                                {{--@endforeach--}}
+                                @foreach($modules as $key => $value)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $value->module->name }}</td>
+                                        <td>{{ $value->module->description}}</td>
+                                        <td>{{ $value->module->status}}</td>
+                                        <td>{{ $value->module->version}}</td>
+                                        <td>
+                                            <a class ="btn btn-primary btn-sm btn-detail" href="{{ route('module.detail',$value->id )}}"><i class ="fa fa-pencil"></i></a>
+                                            <a class ="btn btn-danger btn-sm btn-delete" onclick="return onDelete('{{ route('module.delete', $value->id)}}')"><i class ="fa fa-close"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

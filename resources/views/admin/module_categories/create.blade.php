@@ -38,7 +38,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Description </label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control" name="description" placeholder="">
+                                        <textarea class="form-control" id="summernote" name="description" style="height: 300px;"></textarea>
                                     </div>
                                 </div>
 

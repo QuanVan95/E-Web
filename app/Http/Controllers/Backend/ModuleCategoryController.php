@@ -13,6 +13,15 @@ class ModuleCategoryController extends Controller
     public function index()
     {
         $moduleCates = ModuleCategory::orderBy('id', 'desc')->paginate(10);
+
+        foreach($moduleCates as $module){ //Remove tags <p> <u>... in summernote
+            if($module->description){
+              $listRemove = ['<p>','</p>','<u>','</u>','<b>','</b>'];
+              $description = str_replace($listRemove, " ", $module->description);
+              $module->description = $description;
+            }
+        }
+
         foreach ($moduleCates as $value){
             if($value->parent_id > 0){
                 $moduleCate = ModuleCategory::find($value->parent_id);

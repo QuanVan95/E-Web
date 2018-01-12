@@ -42,7 +42,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Description </label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control" name="description" placeholder=" Description " value="{{ $moduleCate->description }}">
+                                        <textarea class="form-control" id="summernote" name="description" style="height: 300px;">{{ $moduleCate->description }}</textarea>
                                     </div>
                                 </div>
                             </div>

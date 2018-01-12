@@ -15,7 +15,7 @@
                 <div class="portlet light bordered">
                     <div class="portlet-body">
                         <!-- BEGIN FORM-->
-                        <form action="{{route('module.addVersion')}}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                        <form action="" class="form-horizontal" method="post" enctype="multipart/form-data">
                             {{csrf_field()}}
                             <div class="form-body">
                                 <div class="form-group">

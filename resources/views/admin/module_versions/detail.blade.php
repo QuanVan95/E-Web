@@ -15,7 +15,7 @@
                 <div class="portlet light bordered">
                     <div class="portlet-body">
                         <!-- BEGIN FORM-->
-                        <form action="{{route('module.addVersion')}}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('moduleVersion.add') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
                             {{csrf_field()}}
                             <div class="form-body">
                                 <div class="form-group">
@@ -25,7 +25,7 @@
                                             <option value="0">- Choose Category-</option>
                                             @foreach($moduleCates as $value)
                                                 @if($module->module_cate_id == $value->id)
-                                                    <option value="{{ $value->id }}" selected>{{$value->name}}</option>
+                                                    <option value="{{ $value->id }}">{{$value->name}}</option>
                                                 @else
                                                     <option value="{{ $value->id }}">{{$value->name}}</option>
                                                 @endif
@@ -37,34 +37,31 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Name </label>
                                     <div class="col-md-4">
-                                        <textarea type="text" class="form-control" name="name" placeholder="Name of module"></textarea>
+                                        <textarea type="text" class="form-control" name="name" placeholder="Description"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Description </label>
                                     <div class="col-md-4">
-                                        <textarea class="form-control" id="code_preview0" name="" style="height: 300px;"></textarea>
+                                        <textarea type="text" class="form-control" name="description" placeholder="Description"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Version </label>
                                     <div class="col-md-4">
-                                        <textarea type="text" class="form-control" name="version" placeholder="Version"></textarea>
+                                        <textarea type="text" class="form-control" name="version" placeholder="Description"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Status </label>
-                                    <div class="col-md-4">
-                                        <select class ="form-control">
-                                            <option value="1">Public</option>
-                                            <option value="2">Draft</option>
-                                            <option value="3">??</option>
-                                        </select>
-                                    </div>
-
+                                    <select class ="form-control">
+                                        <option value="1">Public</option>
+                                        <option value="2">Draft</option>
+                                        <option value="3">??</option>
+                                    </select>
                                 </div>
 
                                 <!-- END FORM-->

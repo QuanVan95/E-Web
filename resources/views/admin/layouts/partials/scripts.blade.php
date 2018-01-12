@@ -209,7 +209,7 @@
                     });
                 }
             });
-    }
+    }+
     function notify(data) {
         $.bootstrapGrowl(data.message, {
             ele: 'body', // which element to append to

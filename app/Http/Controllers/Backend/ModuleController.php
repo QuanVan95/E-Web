@@ -30,23 +30,30 @@ class ModuleController extends Controller
     public function create()
     {
         $moduleCates = ModuleCategory::all();
-        return view('admin.modules.create', compact('moduleCates'));
+        return view('admin.modules.detail', compact('moduleCates'));
     }
 
     public function store(Request $request)
     {
         $data = $request->all();
-        $moduleCate = Module::create($data);
-       // Session::flash('success', 'Create Module Category Successfully!');
         $moduleCates = ModuleCategory::all();
-        return view(route('admin.module.detail', compact('moduleCates')));
+        $module = Module::create($data);
+        if(!$module){
+            return response()->view('admin.errors.404', [], 404);
+        }
+        Session::flash('success', 'Create Module Successfully!');
+        return redirect(route('module.detail', $module->id));
 //        if ($request->ajax()) {
 ////            echo '<pre style="color:green;font-weight:bold;">';
 //         // $data = $request->all();
 //            $data['attribute'] = json_encode($data['list']);
 //            //return response($data['attribute']);
 //        }
+    }
 
+    public function storeVersion(Request $request){
+        $data = $request->all();
+        return redirect(route('module.index'));
     }
 
     public function show($id)
@@ -55,13 +62,8 @@ class ModuleController extends Controller
         if(!$module){
             return response()->view('admin.errors.404', [], 404);
         }
-        $modules = Module::all();
-        foreach ($modules as $key => $value){
-            if($module->id == $value->id){
-                unset($modules[$key]);
-            }
-        }
-        return view('admin.modules.detail', compact(['module','modules']));
+        $moduleCates = ModuleCategory::all();
+        return view('admin.modules.detail', compact(['module','moduleCates']));
     }
 
     public function update(Request $request, $id)
