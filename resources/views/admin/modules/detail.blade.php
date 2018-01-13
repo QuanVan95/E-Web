@@ -15,13 +15,14 @@
                 <div class="portlet light bordered">
                     <div class="portlet-body">
                         <!-- BEGIN FORM-->
-                        <form action="{{route('module.addVersion')}}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                        <form action="{{route('module.addVersion')}}" id="submit-version" class="form-horizontal" method="post" enctype="multipart/form-data">
                             {{csrf_field()}}
+                            <input type="hidden" class="form-control" id="attribute" name="attribute" ></input>
                             <div class="form-body">
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Category </label>
                                     <div class="col-md-4">
-                                        <select name="parent_id" class="form-control">
+                                        <select name="parent_id" class="form-control" disabled="disabled">
                                             <option value="0">- Choose Category-</option>
                                             @foreach($moduleCates as $value)
                                                 @if($module->module_cate_id == $value->id)
@@ -37,28 +38,28 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Name </label>
                                     <div class="col-md-4">
-                                        <textarea type="text" class="form-control" name="name" placeholder="Name of module"></textarea>
+                                        <input type="text" class="form-control" name="name" placeholder="Name of module"></input>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Description </label>
                                     <div class="col-md-4">
-                                        <textarea class="form-control" id="code_preview0" name="" style="height: 300px;"></textarea>
+                                        <textarea class="form-control" id="summernote" name="description" style="height: 300px;"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Version </label>
                                     <div class="col-md-4">
-                                        <textarea type="text" class="form-control" name="version" placeholder="Version"></textarea>
+                                        <input type="text" class="form-control" value="1" name="version" disabled="disabled"></input>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Status </label>
                                     <div class="col-md-4">
-                                        <select class ="form-control">
+                                        <select class ="form-control" name="status">
                                             <option value="1">Public</option>
                                             <option value="2">Draft</option>
                                             <option value="3">??</option>
@@ -71,7 +72,7 @@
                                 <br />
                                 <h2 align="center">Attribute - Object Models/Resources</h2>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="crud_table">
+                                    <table class="table table-bordered" id="attribute-table">
                                         <thead>
                                         <tr>
                                             <th >Property</th>
@@ -82,25 +83,57 @@
                                             <th>F</th>
                                             <th >C</th>
                                             <th >I</th>
+                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td contenteditable="true" class="property"></td>
-                                            <td contenteditable="true" class="type"></td>
-                                            <td contenteditable="true" class="attribute_description"></td>
-                                            <td contenteditable="true" class="example_value"></td>
-                                            <td contenteditable="true" class="required_default"></td>
-                                            <td contenteditable="true" class="f"></td>
-                                            <td contenteditable="true" class="c"></td>
-                                            <td contenteditable="true" class="r"></td>
+                                            <td><input type = "text" class="property" ></td>
+                                            <td><input type="text" class="type"  ></td>
+                                            <td><input type="text" class="attribute_description" ></td>
+                                            <td><input type="text" class="example_value"></td>
+                                            <td><input type="text" class="required_default"></td>
+                                            <td><input type="text" class="f" > </td>
+                                            <td><input type="text" class="c" > </td>
+                                            <td><input type="text" class="r" > </td>
+                                            <td></td>
                                         </tr>
                                         </tbody>
 
                                     </table>
                                     <div align="right">
-                                        <button type="button" name="add" id='add' class="btn btn-success btn-xs">+</button>
-                                        <button type="button" name="ajax-add" id='add' class="ajax-add btn btn-success btn-xs">Add</button>
+                                        <button type="button" name="add-attribute" id='add-attribute' class="btn btn-success btn-xs add-attribute">+</button>
+                                    </div>
+                                    <div id="inserted_item_data"></div>
+                                </div>
+
+                                <h2 align="center">Related API Endpoints</h2>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="api-table">
+                                        <thead>
+                                        <tr>
+                                            <th >Method</th>
+                                            <th >URL</th>
+                                            <th >Description</th>
+                                            <th >Doc Updated</th>
+                                            <th >Status</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td><input type = "text" class="api-method" ></td>
+                                            <td><input type="text" class="api-url"  ></td>
+                                            <td><input type="text" class="api-description" ></td>
+                                            <td><input type="text" class="api-doc-updated"></td>
+                                            <td><input type="text" class="api-status"></td>
+                                            <td></td>
+                                        </tr>
+                                        </tbody>
+
+                                    </table>
+                                    <div align="right">
+                                        <button type="button" name="add-api" id="add-api" class="btn btn-success btn-xs add-api">+</button>
                                     </div>
                                     <div id="inserted_item_data"></div>
                                 </div>
@@ -108,7 +141,7 @@
                                 <div class="form-actions">
                                     <div class="row">
                                         <div class="col-md-offset-3 col-md-4">
-                                            <button type="submit" class="btn green check">Create </button>
+                                            <button type="button" id="addVersion" class="btn green ajax-add">Create </button>
                                             <a href="{{ route('module.index') }}" class="btn default">Back </a>
                                         </div>
                                     </div>

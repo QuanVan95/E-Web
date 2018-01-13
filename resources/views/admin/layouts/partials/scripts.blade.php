@@ -65,28 +65,89 @@
     });
 
     $(document).ready(function() {
-        $('.ajax-add').click(function() {
+        //Start add a new row in Attribute
+        var count = 1;
+        $('#add-attribute').click(function(){
+                count = count + 1;
+                var htmlCode = "<tr id='row"+count+"'>";
+            htmlCode += "<td><input type = 'text' class='property' ></td>"; //IF u using " " have to use \"type\"
+            htmlCode += "<td><input type='text' class='type' ></td>";
+            htmlCode += " <td><input type='text' class='attribute_description' ></td>";
+            htmlCode += "<td><input type='text' class='example_value'></td>";
+            htmlCode += "<td><input type='text' class='required_default'></td>";
+            htmlCode += " <td><input type='text' class='f'> </td>";
+            htmlCode += "<td><input type='text' class='c' > </td>";
+            htmlCode += " <td><input type=\"text\" class=\"r\"> </td>";
+            htmlCode += "<td><button type='button' name='remove' data-row='row"+count+"' class='btn btn-danger btn-xs remove'>-</button></td>";
+            htmlCode += "</tr>";
+                $('#attribute-table').append(htmlCode);
+            });
+            $(document).on('click', '.remove', function(){
+                var delete_row = $(this).data("row");
+                $('#' + delete_row).remove();
+            });
+
+    //End add a new row in Attribute
+
+    //Start add a new row in API
+    $('#add-api').click(function() {
+       const countApi = 1;
+       var htmlApi = "<tr id ='row-api"+countApi+"'>";
+       htmlApi += "<td><input type='text' class ='api-method' ></td>";
+       htmlApi += "<td><input type='text' class ='api-url'></td>";
+       htmlApi += "<td><input type ='text' class ='api-description'></td>";
+       htmlApi += "<td><input type='text' class ='api-doc-updated'></td>";
+       htmlApi += "<td><input type='text' class ='api-status'></td>";
+       htmlApi += "<td><button type='button' name='remove-api' data-row='row"+countApi+"' class='btn btn-danger btn-xs remove-api'>-</button></td>";
+        htmlApi += "</tr>";
+       $('#api-table').append(htmlApi);
+    });
+        $(document).on('click', '.remove-api', function(){
+           var deleteApi = $(this).data('row');
+           $('#' + deleteApi).remove();
+        });
+    //End add a new row in API
+
+//        function fetch_item_data()
+//        {
+//            $.ajax({
+//                url:"fetch.php",
+//                method:"POST",
+//                success:function(data)
+//                {
+//                    $('#inserted_item_data').html(data);
+//                }
+//            })
+//        }
+//        fetch_item_data();
+
+
+        $('#addVersion').click(function() {   // This function using to convert many fields in a row of a table into an object and changes it into json before submitting.
             const list = [];
-            $('#crud_table tbody tr').each(function(i, e){
-                var property = $(this).find(".property").html();
-                var type = $(this).find(".type").html();
-                var attribute_description = $(this).find(".attribute_description").html();
-                var example_value = $(this).find(".example_value").html();
-                var required_default = $(this).find(".f").html();
-                var f = $(this).find(".f").html();
-                var c = $(this).find(".c").html();
-                var r = $(this).find(".r").html();
+            $('#attribute_table tbody tr').each(function(i, e){
+                var property = $(this).find(".property").val();
+                var type = $(this).find(".type").val();
+                var attribute_description = $(this).find(".attribute_description").val();
+                var example_value = $(this).find(".e_value").val();
+                var required_default = $(this).find(".f").val();
+                var f = $(this).find(".f").val();
+                var c = $(this).find(".c").val();
+                var r = $(this).find(".r").val();
                 list.push({property:property, type:type, attribute_description:attribute_description,example_value:example_value, required_default:required_default, f:f, c:c, r:r });
             });
-            $.ajax({
-                url: '{{ route('module.add') }}',
-                method: "POST",
-                data: {"list": list, "_token": "{{ csrf_token() }}"}, //Data send to server (Request)
-                success:function(data){   //Data receive from server (Response)
-                    console.log(data);
-                }
-            });
+            $('#attribute').val(JSON.stringify(list));
+            $('#submit-version').submit();
         });
+            {{--$.ajax({--}}
+                {{--url: '{{ route('module.add') }}',--}}
+                {{--method: "POST",--}}
+                {{--data: {"list": list, "_token": "{{ csrf_token() }}"}, //Data send to server (Request)--}}
+
+                {{--success:function(data){   //Data receive from server (Response)--}}
+                    {{--console.log('abccc');--}}
+                {{--}--}}
+            {{--});--}}
+
     });
     $(document).ready(function() {
         $('#summernote').summernote({
@@ -240,72 +301,7 @@
     }
 
     $(document).ready(function(){
-        var count = 1;
-        $('#add').click(function(){
-            count = count + 1;
-            var html_code = "<tr id='row"+count+"'>";
-            html_code += "<td contenteditable='true' class='property'></td>";
-            html_code += "<td contenteditable='true' class='type'></td>";
-            html_code += "<td contenteditable='true' class='attribute_description'></td>";
-            html_code += "<td contenteditable='true' class='example_value'></td>";
-            html_code += "<td contenteditable='true' class='required_default'></td>";
-            html_code += "<td contenteditable='true' class='f'></td>";
-            html_code += "<td contenteditable='true' class='c'></td>";
-            html_code += "<td contenteditable='true' class='l'></td>";
-            html_code += "<td><button type='button' name='remove' data-row='row"+count+"' class='btn btn-danger btn-xs remove'>-</button></td>";
-            html_code += "</tr>";
-            $('#crud_table').append(html_code);
-        });
-        $(document).on('click', '.remove', function(){
-            var delete_row = $(this).data("row");
-            $('#' + delete_row).remove();
-        });
 
-        $('#save').click(function(){
-            var item_name = [];
-            var item_code = [];
-            var item_desc = [];
-            var item_price = [];
-            $('.item_name').each(function(){
-                item_name.push($(this).text());
-            });
-            $('.item_code').each(function(){
-                item_code.push($(this).text());
-            });
-            $('.item_desc').each(function(){
-                item_desc.push($(this).text());
-            });
-            $('.item_price').each(function(){
-                item_price.push($(this).text());
-            });
-            $.ajax({
-                url:"insert.php",
-                method:"POST",
-                data:{item_name:item_name, item_code:item_code, item_desc:item_desc, item_price:item_price},
-                success:function(data){
-                    alert(data);
-                    $("td[contentEditable='true']").text("");
-                    for(var i=2; i<= count; i++)
-                    {
-                        $('tr#'+i+'').remove();
-                    }
-                    fetch_item_data();
-                }
-            });
-        });
-
-        function fetch_item_data()
-        {
-            $.ajax({
-                url:"fetch.php",
-                method:"POST",
-                success:function(data)
-                {
-                    $('#inserted_item_data').html(data);
-                }
-            })
-        }
-        fetch_item_data();
     });
 
     @foreach (['danger', 'warning', 'success', 'info'] as $msg)  //using jquery.bootstrap-growl.js'

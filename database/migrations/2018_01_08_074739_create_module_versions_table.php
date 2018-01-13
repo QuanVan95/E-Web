@@ -12,7 +12,7 @@ class CreateModuleVersionsTable extends Migration
             $table->increments('id');
             $table->text('name')->nullable();
             $table->text('description')->nullable();
-            $table->float('version')->nullable();
+            $table->float('version')->default(1);
             $table->integer('status')->default(0);
             $table->text('attribute')->nullable();
             $table->text('api')->nullable();

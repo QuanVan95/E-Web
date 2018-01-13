@@ -36,7 +36,6 @@ class ModuleController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $moduleCates = ModuleCategory::all();
         $module = Module::create($data);
         if(!$module){
             return response()->view('admin.errors.404', [], 404);
@@ -53,7 +52,15 @@ class ModuleController extends Controller
 
     public function storeVersion(Request $request){
         $data = $request->all();
-        return redirect(route('module.index'));
+        $moduleVersion = ModuleVersion::create($data);
+        if(!$moduleVersion){
+            Session::flash('error', 'Cannot create module version!');
+            return back();
+        }
+
+        Session::flash('success', 'Create module version successfully!');
+        return back();
+       // return redirect(route('module.index'));
     }
 
     public function show($id)
