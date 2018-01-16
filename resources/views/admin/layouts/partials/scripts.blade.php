@@ -70,14 +70,14 @@
         $('#add-attribute').click(function(){
                 count = count + 1;
                 var htmlCode = "<tr id='row"+count+"'>";
-            htmlCode += "<td><input type = 'text' class='property' ></td>"; //IF u using " " => Have to use \"type\"
-            htmlCode += "<td><input type='text' class='type' ></td>";
-            htmlCode += " <td><input type='text' class='attribute_description' ></td>";
-            htmlCode += "<td><input type='text' class='example_value'></td>";
-            htmlCode += "<td><input type='text' class='required_default'></td>";
-            htmlCode += " <td><input type='text' class='f'> </td>";
-            htmlCode += "<td><input type='text' class='c' > </td>";
-            htmlCode += " <td><input type=\"text\" class=\"r\"> </td>";
+            htmlCode += "<td><input type = 'text' class='property' id='width-api' ></td>"; //IF u using " " => Have to use \"type\"
+            htmlCode += "<td><input type='text' class='type' id='width-api'></td>";
+            htmlCode += " <td><input type='text' class='attribute_description' id='width-api'></td>";
+            htmlCode += "<td><input type='text' class='example_value' id='width-api'></td>";
+            htmlCode += "<td><input type='text' class='required_default' id='width-api'></td>";
+            htmlCode += " <td><input type='text' class='f' id='width-api'> </td>";
+            htmlCode += "<td><input type='text' class='c' id='width-api'> </td>";
+            htmlCode += " <td><input type=\"text\" class=\"r\" id='width-api'> </td>";
             htmlCode += "<td><button type='button' name='remove' data-row='row"+count+"' class='btn btn-danger btn-xs remove'>-</button></td>";
             htmlCode += "</tr>";
                 $('#attribute-table').append(htmlCode);

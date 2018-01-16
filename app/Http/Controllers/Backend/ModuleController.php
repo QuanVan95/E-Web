@@ -84,7 +84,18 @@ class ModuleController extends Controller
         // return redirect(route('module.index'));
     }
 
-   public function editVersion($id){
+    public function storeNewVersion(Request $request){
+        $data = $request->all();
+        $moduleVersion = ModuleVersion::find($data['newModuleVersionId']);
+        if(!$moduleVersion){
+            return response()->view('admin.errors.404', [], 404);
+        }
+        $moduleVersion->update($data);
+        Session::flash('success', 'Update module version successfully!');
+        return redirect(route('module.index'));
+    }
+
+    public function editVersion($id){
         $userId = Auth::id();
         $module = Module::find($id);
         if(!$module){
@@ -92,6 +103,7 @@ class ModuleController extends Controller
         }
         if($module->module_version_id){
             $moduleVersion = ModuleVersion::find($module->module_version_id);
+            $moduleVersion->version = $moduleVersion->version + 1 ;
             if($moduleVersion){
                 $newModuleVersion = [];
                 $newModuleVersion['name'] = $moduleVersion->name;
@@ -104,10 +116,13 @@ class ModuleController extends Controller
                 $apis = json_decode($newModuleVersion['api'], false);
                 $attributes = json_decode($newModuleVersion['attribute'], false);
             }
-            ModuleVersion::insert($newModuleVersion);
+            $newModuleVer = ModuleVersion::create($newModuleVersion) ;
+            if($newModuleVer){
+                $newModuleVersionId = $newModuleVer->id;
+            }
         }
         $moduleCates = ModuleCategory::all();
-        return view ('admin.module_versions.detail', compact(['module', 'moduleCates', 'moduleVersion', 'apis', 'attributes']));
+        return view ('admin.module_versions.detail', compact(['module', 'moduleCates', 'moduleVersion', 'apis', 'attributes','newModuleVersionId']));
    }
 
     public function show($id)

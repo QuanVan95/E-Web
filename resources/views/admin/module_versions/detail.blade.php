@@ -15,8 +15,12 @@
                 <div class="portlet light bordered">
                     <div class="portlet-body">
                         <!-- BEGIN FORM-->
-                        <form action="" class="form-horizontal" method="post" enctype="multipart/form-data">
+                        <form action="{{route('module.editVersion')}}" id="submit-version" class="form-horizontal" method="post" enctype="multipart/form-data">
                             {{csrf_field()}}
+                            <input type="hidden" class="form-control" id="attribute" name="attribute" />
+                            <input type="hidden" class="form-control" id="api" name="api" />
+                            <input type="hidden" class="form-control" name="moduleId" value="{{$module->id}}" />
+                            <input type="hidden" class="form-control" name="newModuleVersionId" value="{{$newModuleVersionId}}" />
                             <div class="form-body">
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Category </label>
@@ -37,28 +41,28 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Name </label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control" name="name" placeholder="Description" value = "{{$moduleVersion->name}}"></input>
+                                        <input type="text" class="form-control" name="name" placeholder="Description" value = "{{$moduleVersion->name}}" />
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Description </label>
                                     <div class="col-md-4">
-                                        <textarea type="text" id="summernote" class="form-control" name="description" placeholder="Description">{{$moduleVersion->description}}</textarea>
+                                        <textarea type="text" id="summernote" class="form-control" name="description" placeholder="Description" value="{{$moduleVersion->description}}"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Version </label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control" disabled="disabled" name="version" placeholder="Description" value ="{{$moduleVersion->version}}"></input>
+                                        <input type="text" class="form-control" disabled="disabled" name="version" placeholder="Description" value ="{{$moduleVersion->version}}" />
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Status </label>
                                     <div class="col-md-4">
-                                    <select class ="form-control">
+                                    <select class ="form-control" name="status">
                                         <option value="1">Public</option>
                                         <option value="2" selected>Draft</option>
                                         <option value="3">??</option>
@@ -88,22 +92,19 @@
                                             @if($attributes)
                                                 @foreach($attributes as $attr)
                                                     <tr>
-                                                    <td><input type = "text" class="api-method" name='property' id="width-api" value="{{$attr->property}}"></td>
-                                                    <td><input type = "text" class="api-method" name='type' id="width-api" value="{{$attr->type}}"></td>
-                                                    <td><input type = "text" class="api-method" name='attribute_description' id="width-api" value="{{$attr->description}}"></td>
-                                                    <td><input type = "text" class="api-method" name='example_value' id="width-api" value="{{$attr->example_value}}"></td>
-                                                    <td><input type = "text" class="api-method" name='required_default' id="width-api" value="{{$attr->required_default}}"></td>
-                                                    <td><input type = "text" class="api-method" name='f' id="width-api" value="{{$attr->f}}"></td>
-                                                    <td><input type = "text" class="api-method" name='c' id="width-api" value="{{$attr->c}}"></td>
-                                                    <td><input type = "text" class="api-method" name='r' id="width-api" value="{{$attr->r}}"></td>
+                                                    <td><input type = "text" class="property" id="width-api" value="{{$attr->property}}"></td>
+                                                    <td><input type = "text" class="type" id="width-api" value="{{$attr->type}}"></td>
+                                                    <td><input type = "text" class="attribute_description" id="width-api" value="{{$attr->description}}"></td>
+                                                    <td><input type = "text" class="example_value" id="width-api" value="{{$attr->example_value}}"></td>
+                                                    <td><input type = "text" class="required_default" id="width-api" value="{{$attr->required_default}}"></td>
+                                                    <td><input type = "text" class="f" name='f' id="width-api" value="{{$attr->f}}"></td>
+                                                    <td><input type = "text" class="c" name='c' id="width-api" value="{{$attr->c}}"></td>
+                                                    <td><input type = "text" class="r" name='r' id="width-api" value="{{$attr->r}}"></td>
                                                     <td></td>
                                                     </tr>
                                                 @endforeach
                                             @endif
-
-
                                         </tbody>
-
                                     </table>
                                     <div align="right">
                                         <button type="button" name="add-attribute" id='add-attribute' class="btn btn-success btn-xs add-attribute">+</button>
@@ -130,10 +131,10 @@
                                                  @foreach($apis as $api)
                                                     <tr>
                                                     <td><input type = "text" class="api-method" id="width-api" value="{{$api->method}}"></td>
-                                                    <td><input type = "text" class="api-method" id="width-api" value="{{$api->url}}"></td>
-                                                    <td><input type = "text" class="api-method" id="width-api" value="{{$api->description}}"></td>
-                                                    <td><input type = "text" class="api-method" id="width-api" value="{{$api->doc_updated}}"></td>
-                                                    <td><input type = "text" class="api-method" id="width-api" value="{{$api->status}}"></td>
+                                                    <td><input type = "text" class="api-url" id="width-api" value="{{$api->url}}"></td>
+                                                    <td><input type = "text" class="api-description" id="width-api" value="{{$api->description}}"></td>
+                                                    <td><input type = "text" class="api-doc-updated" id="width-api" value="{{$api->doc_updated}}"></td>
+                                                    <td><input type = "text" class="api-status" id="width-api" value="{{$api->status}}"></td>
                                                     <td></td>
                                                     </tr>
                                                 @endforeach
