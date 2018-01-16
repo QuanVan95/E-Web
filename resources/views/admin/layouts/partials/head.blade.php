@@ -13,7 +13,7 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/bootstrap-switch.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('plugins/bootstrap-summernote/summernote.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('plugins/bootstrap-sweetalert/sweetalert.css') }}" rel="stylesheet" type="text/css" /> //Using for confirming to delete
+    <link href="{{ asset('plugins/bootstrap-sweetalert/sweetalert.css') }}" rel="stylesheet" type="text/css" /> <!-- Using for confirming to delete -->
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN THEME GLOBAL STYLES -->

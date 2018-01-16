@@ -69,7 +69,6 @@ class ModuleCategoryController extends Controller
             return response()->view('admin.errors.404', [], 404);
         }
         $data = $request->all();
-        dd($data);
         $moduleCate->update($data);
         Session::flash('success', 'Update Successfully!');
         return back();

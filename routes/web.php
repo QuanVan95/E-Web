@@ -69,7 +69,7 @@ Route::group(['middleware' => 'validateBackHistory'], function () {
             Route::get('/', ['as' => 'moduleCate.index', 'uses' => 'Backend\ModuleCategoryController@index']);
             Route::get('/create', ['as' => 'moduleCate.create', 'uses' => 'Backend\ModuleCategoryController@create']);
             Route::get('/detail/{id}', ['as' => 'moduleCate.detail', 'uses' => 'Backend\ModuleCategoryController@show']);
-            Route::post('/add', ['as' => 'moduleCate.add', 'uses' => 'Backend\ModuleCategoryController@store']);
+            Route::post('/', ['as' => 'moduleCate.add', 'uses' => 'Backend\ModuleCategoryController@store']);
             Route::post('/update/{id}', ['as' => 'moduleCate.update', 'uses' => 'Backend\ModuleCategoryController@update']);
             Route::get('/{id}',['as' => 'moduleCate.delete', 'uses' => 'Backend\ModuleCategoryController@destroy']);
         });
@@ -78,7 +78,7 @@ Route::group(['middleware' => 'validateBackHistory'], function () {
             Route::get('/create', ['as' => 'module.create', 'uses' => 'Backend\ModuleController@create']);
             Route::get('/module-detail/{id}', ['as' => 'module.detail', 'uses' => 'Backend\ModuleController@show']);
             Route::post('/module-versions', ['as' => 'module.addVersion', 'uses' => 'Backend\ModuleController@storeVersion']);
-            Route::get('/detail/{id}', ['as' => 'module.modifyVersion', 'uses' => 'Backend\ModuleController@editDetail']);
+            Route::get('/detail/{id}', ['as' => 'module.modifyVersion', 'uses' => 'Backend\ModuleController@editVersion']);
             Route::post('/', ['as' => 'module.add', 'uses' => 'Backend\ModuleController@store']);
             Route::post('/update/{id}', ['as' => 'module.update', 'uses' => 'Backend\ModuleController@update']);
             Route::get('/{id}',['as' => 'module.delete', 'uses' => 'Backend\ModuleController@destroy']);

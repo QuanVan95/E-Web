@@ -43,7 +43,7 @@
 <script src="{{ asset('js/jquery.vmap.germany.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/jquery.vmap.usa.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/jquery.vmap.sampledata.js') }}" type="text/javascript"></script>
-<script src="{{ asset('plugins/bootstrap-sweetalert/sweetalert.min.js')}}" type="text/javascript"></script> //Using for confirming to delete
+<script src="{{ asset('plugins/bootstrap-sweetalert/sweetalert.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('js/fileup.js') }}" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
@@ -70,7 +70,7 @@
         $('#add-attribute').click(function(){
                 count = count + 1;
                 var htmlCode = "<tr id='row"+count+"'>";
-            htmlCode += "<td><input type = 'text' class='property' ></td>"; //IF u using " " have to use \"type\"
+            htmlCode += "<td><input type = 'text' class='property' ></td>"; //IF u using " " => Have to use \"type\"
             htmlCode += "<td><input type='text' class='type' ></td>";
             htmlCode += " <td><input type='text' class='attribute_description' ></td>";
             htmlCode += "<td><input type='text' class='example_value'></td>";
@@ -115,7 +115,7 @@
                 var property = $(this).find(".property").val();
                 var type = $(this).find(".type").val();
                 var attribute_description = $(this).find(".attribute_description").val();
-                var example_value = $(this).find(".e_value").val();
+                var example_value = $(this).find(".example_value").val();
                 var required_default = $(this).find(".f").val();
                 var f = $(this).find(".f").val();
                 var c = $(this).find(".c").val();

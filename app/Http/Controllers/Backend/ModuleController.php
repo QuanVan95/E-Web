@@ -7,6 +7,7 @@ use App\ModuleVersion;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Module;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Session;
 use File;
@@ -57,18 +58,14 @@ class ModuleController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        $userId = Auth::id();
+        $data['created_by'] = $userId;
         $module = Module::create($data);
         if(!$module){
             return response()->view('admin.errors.404', [], 404);
         }
         Session::flash('success', 'Create Module Successfully!');
         return redirect(route('module.detail', $module->id));
-//        if ($request->ajax()) {
-////            echo '<pre style="color:green;font-weight:bold;">';
-//         // $data = $request->all();
-//            $data['attribute'] = json_encode($data['list']);
-//            //return response($data['attribute']);
-//        }
     }
 
     public function storeVersion(Request $request){
@@ -80,17 +77,38 @@ class ModuleController extends Controller
         }
         $module = Module::find($data['moduleId']);
         if($module){
-            $module->update(['module_version_id',$moduleVersion->id]);
+            $module->update(['module_version_id' => $moduleVersion->id]);
         }
-        $dataModule = [
-            '_token' => $data['_token'],
-            'module_version_id' => $moduleVersion->id,
-        ];
-        $module->update($dataModule);
         Session::flash('success', 'Create module version successfully!');
         return back();
         // return redirect(route('module.index'));
     }
+
+   public function editVersion($id){
+        $userId = Auth::id();
+        $module = Module::find($id);
+        if(!$module){
+            return response()->view('admin.errors.404', [], 404);
+        }
+        if($module->module_version_id){
+            $moduleVersion = ModuleVersion::find($module->module_version_id);
+            if($moduleVersion){
+                $newModuleVersion = [];
+                $newModuleVersion['name'] = $moduleVersion->name;
+                $newModuleVersion['description'] = $moduleVersion->description;
+                $newModuleVersion['status'] = 2;
+                $newModuleVersion['version'] = $moduleVersion->version +1;
+                $newModuleVersion['attribute'] = $moduleVersion->attribute;
+                $newModuleVersion['api'] = $moduleVersion->api;
+                $newModuleVersion['updated_by'] = $userId;
+                $apis = json_decode($newModuleVersion['api'], false);
+                $attributes = json_decode($newModuleVersion['attribute'], false);
+            }
+            ModuleVersion::insert($newModuleVersion);
+        }
+        $moduleCates = ModuleCategory::all();
+        return view ('admin.module_versions.detail', compact(['module', 'moduleCates', 'moduleVersion', 'apis', 'attributes']));
+   }
 
     public function show($id)
     {

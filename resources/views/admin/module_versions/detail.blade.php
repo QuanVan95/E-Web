@@ -15,17 +15,17 @@
                 <div class="portlet light bordered">
                     <div class="portlet-body">
                         <!-- BEGIN FORM-->
-                        <form action="{{ route('moduleVersion.add') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                        <form action="" class="form-horizontal" method="post" enctype="multipart/form-data">
                             {{csrf_field()}}
                             <div class="form-body">
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Category </label>
                                     <div class="col-md-4">
-                                        <select name="parent_id" class="form-control">
+                                        <select name="parent_id" class="form-control" disabled>
                                             <option value="0">- Choose Category-</option>
                                             @foreach($moduleCates as $value)
                                                 @if($module->module_cate_id == $value->id)
-                                                    <option value="{{ $value->id }}">{{$value->name}}</option>
+                                                    <option value="{{ $value->id }}" selected>{{$value->name}}</option>
                                                 @else
                                                     <option value="{{ $value->id }}">{{$value->name}}</option>
                                                 @endif
@@ -37,38 +37,40 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Name </label>
                                     <div class="col-md-4">
-                                        <textarea type="text" class="form-control" name="name" placeholder="Description"></textarea>
+                                        <input type="text" class="form-control" name="name" placeholder="Description" value = "{{$moduleVersion->name}}"></input>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Description </label>
                                     <div class="col-md-4">
-                                        <textarea type="text" class="form-control" name="description" placeholder="Description"></textarea>
+                                        <textarea type="text" id="summernote" class="form-control" name="description" placeholder="Description">{{$moduleVersion->description}}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Version </label>
                                     <div class="col-md-4">
-                                        <textarea type="text" class="form-control" name="version" placeholder="Description"></textarea>
+                                        <input type="text" class="form-control" disabled="disabled" name="version" placeholder="Description" value ="{{$moduleVersion->version}}"></input>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Status </label>
+                                    <div class="col-md-4">
                                     <select class ="form-control">
                                         <option value="1">Public</option>
-                                        <option value="2">Draft</option>
+                                        <option value="2" selected>Draft</option>
                                         <option value="3">??</option>
                                     </select>
+                                    </div>
                                 </div>
 
                                 <!-- END FORM-->
                                 <br />
                                 <h2 align="center">Attribute - Object Models/Resources</h2>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="crud_table">
+                                    <table class="table table-bordered" id="attribute-table">
                                         <thead>
                                         <tr>
                                             <th >Property</th>
@@ -76,28 +78,71 @@
                                             <th >Description</th>
                                             <th >Example Value(s)</th>
                                             <th >Required/Defaults</th>
-                                            <th>F</th>
-                                            <th >C</th>
-                                            <th >I</th>
+                                            <th id="width-attribute">F</th>
+                                            <th id="width-attribute">C</th>
+                                            <th id="width-attribute">I</th>
+                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td contenteditable="true" class="property"></td>
-                                            <td contenteditable="true" class="type"></td>
-                                            <td contenteditable="true" class="attribute_description"></td>
-                                            <td contenteditable="true" class="example_value"></td>
-                                            <td contenteditable="true" class="required_default"></td>
-                                            <td contenteditable="true" class="f"></td>
-                                            <td contenteditable="true" class="c"></td>
-                                            <td contenteditable="true" class="r"></td>
-                                        </tr>
+                                            @if($attributes)
+                                                @foreach($attributes as $attr)
+                                                    <tr>
+                                                    <td><input type = "text" class="api-method" name='property' id="width-api" value="{{$attr->property}}"></td>
+                                                    <td><input type = "text" class="api-method" name='type' id="width-api" value="{{$attr->type}}"></td>
+                                                    <td><input type = "text" class="api-method" name='attribute_description' id="width-api" value="{{$attr->description}}"></td>
+                                                    <td><input type = "text" class="api-method" name='example_value' id="width-api" value="{{$attr->example_value}}"></td>
+                                                    <td><input type = "text" class="api-method" name='required_default' id="width-api" value="{{$attr->required_default}}"></td>
+                                                    <td><input type = "text" class="api-method" name='f' id="width-api" value="{{$attr->f}}"></td>
+                                                    <td><input type = "text" class="api-method" name='c' id="width-api" value="{{$attr->c}}"></td>
+                                                    <td><input type = "text" class="api-method" name='r' id="width-api" value="{{$attr->r}}"></td>
+                                                    <td></td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
+
+
                                         </tbody>
 
                                     </table>
                                     <div align="right">
-                                        <button type="button" name="add" id='add' class="btn btn-success btn-xs">+</button>
-                                        <button type="button" name="ajax-add" id='add' class="ajax-add btn btn-success btn-xs">Add</button>
+                                        <button type="button" name="add-attribute" id='add-attribute' class="btn btn-success btn-xs add-attribute">+</button>
+                                    </div>
+                                    <div id="inserted_item_data"></div>
+                                </div>
+
+                                <h2 align="center">Related API Endpoints</h2>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="api-table">
+                                        <thead>
+                                        <tr>
+                                            <th >Method</th>
+                                            <th >URL</th>
+                                            <th >Description</th>
+                                            <th >Doc Updated</th>
+                                            <th >Status</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                             @if($apis)
+                                                 @foreach($apis as $api)
+                                                    <tr>
+                                                    <td><input type = "text" class="api-method" id="width-api" value="{{$api->method}}"></td>
+                                                    <td><input type = "text" class="api-method" id="width-api" value="{{$api->url}}"></td>
+                                                    <td><input type = "text" class="api-method" id="width-api" value="{{$api->description}}"></td>
+                                                    <td><input type = "text" class="api-method" id="width-api" value="{{$api->doc_updated}}"></td>
+                                                    <td><input type = "text" class="api-method" id="width-api" value="{{$api->status}}"></td>
+                                                    <td></td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
+                                        </tbody>
+
+                                    </table>
+                                    <div align="right">
+                                        <button type="button" name="add-api" id="add-api" class="btn btn-success btn-xs add-api">+</button>
                                     </div>
                                     <div id="inserted_item_data"></div>
                                 </div>
@@ -105,7 +150,7 @@
                                 <div class="form-actions">
                                     <div class="row">
                                         <div class="col-md-offset-3 col-md-4">
-                                            <button type="submit" class="btn green check">Create </button>
+                                            <button type="button" id="addVersion" class="btn green ajax-add">Create </button>
                                             <a href="{{ route('module.index') }}" class="btn default">Back </a>
                                         </div>
                                     </div>
