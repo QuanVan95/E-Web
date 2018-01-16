@@ -83,48 +83,35 @@
                 $('#attribute-table').append(htmlCode);
             });
             $(document).on('click', '.remove', function(){
-                var delete_row = $(this).data("row");
+                var delete_row = $(this).data("row"); //using data-row='row"+count+"' to delete
                 $('#' + delete_row).remove();
             });
+        //End add a new row in Attribute
 
-    //End add a new row in Attribute
-
-    //Start add a new row in API
-    $('#add-api').click(function() {
-       const countApi = 1;
-       var htmlApi = "<tr id ='row-api"+countApi+"'>";
-       htmlApi += "<td><input type='text' class ='api-method' ></td>";
-       htmlApi += "<td><input type='text' class ='api-url'></td>";
-       htmlApi += "<td><input type ='text' class ='api-description'></td>";
-       htmlApi += "<td><input type='text' class ='api-doc-updated'></td>";
-       htmlApi += "<td><input type='text' class ='api-status'></td>";
-       htmlApi += "<td><button type='button' name='remove-api' data-row='row"+countApi+"' class='btn btn-danger btn-xs remove-api'>-</button></td>";
-        htmlApi += "</tr>";
-       $('#api-table').append(htmlApi);
-    });
-        $(document).on('click', '.remove-api', function(){
-           var deleteApi = $(this).data('row');
-           $('#' + deleteApi).remove();
+        //Start add a new row in API
+        $('#add-api').click(function() {
+           const countApi = 1; // <tr id='row-api1'>
+           var htmlApi = "<tr id ='row-api"+countApi+"'>";
+           htmlApi += "<td><input type='text' class ='api-method' id='width-api'></td>";
+           htmlApi += "<td><input type='text' class ='api-url' id='width-api'></td>";
+           htmlApi += "<td><input type ='text' class ='api-description' id='width-api'></td>";
+           htmlApi += "<td><input type='text' class ='api-doc-updated' id='width-api'></td>";
+           htmlApi += "<td><input type='text' class ='api-status' id='width-api'></td>";
+           htmlApi += "<td><button type='button' name='remove-api' data-row='row-api"+countApi+"' class='btn btn-danger btn-xs remove-api'>-</button></td>";
+            htmlApi += "</tr>";
+           $('#api-table').append(htmlApi);
         });
-    //End add a new row in API
+            $(document).on('click', '.remove-api', function(){
+               var deleteApi = $(this).data("row"); //using data-row ='row-api"+countApi+"'
+               $('#' + deleteApi).remove();
+            });
+        //End add a new row in API
 
-//        function fetch_item_data()
-//        {
-//            $.ajax({
-//                url:"fetch.php",
-//                method:"POST",
-//                success:function(data)
-//                {
-//                    $('#inserted_item_data').html(data);
-//                }
-//            })
-//        }
-//        fetch_item_data();
-
-
+        //Start Function revert value of table into JSON
         $('#addVersion').click(function() {   // This function using to convert many fields in a row of a table into an object and changes it into json before submitting.
             const list = [];
-            $('#attribute_table tbody tr').each(function(i, e){
+            const apiList = [];
+            $('#attribute-table tbody tr').each(function(i, e){
                 var property = $(this).find(".property").val();
                 var type = $(this).find(".type").val();
                 var attribute_description = $(this).find(".attribute_description").val();
@@ -133,22 +120,23 @@
                 var f = $(this).find(".f").val();
                 var c = $(this).find(".c").val();
                 var r = $(this).find(".r").val();
-                list.push({property:property, type:type, attribute_description:attribute_description,example_value:example_value, required_default:required_default, f:f, c:c, r:r });
+                list.push({property:property, type:type, description:attribute_description,example_value:example_value, required_default:required_default, f:f, c:c, r:r });
             });
-            $('#attribute').val(JSON.stringify(list));
+            $('#attribute').val(JSON.stringify(list)); //assign JSON value for html tag which has id="attribute"
+            $('#api-table tbody tr').each(function(){
+                var method = $(this).find(".api-method").val();
+                var url    = $(this).find(".api-url").val();
+                var api_description = $(this).find(".api-description").val();
+                var doc_updated     = $(this).find(".api-doc-updated").val();
+                var status          = $(this).find(".api-status").val();
+                apiList.push({method: method, url: url, description: api_description, doc_updated: doc_updated, status: status});
+            });
+            $('#api').val(JSON.stringify(apiList)); //set value for html tag which has id="api"
             $('#submit-version').submit();
         });
-            {{--$.ajax({--}}
-                {{--url: '{{ route('module.add') }}',--}}
-                {{--method: "POST",--}}
-                {{--data: {"list": list, "_token": "{{ csrf_token() }}"}, //Data send to server (Request)--}}
-
-                {{--success:function(data){   //Data receive from server (Response)--}}
-                    {{--console.log('abccc');--}}
-                {{--}--}}
-            {{--});--}}
-
     });
+    //END Function revert value of table into JSON
+
     $(document).ready(function() {
         $('#summernote').summernote({
             height: 500,

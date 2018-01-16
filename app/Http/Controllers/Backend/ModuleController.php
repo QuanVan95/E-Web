@@ -7,6 +7,7 @@ use App\ModuleVersion;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Module;
+use Illuminate\Support\Facades\DB;
 use Session;
 use File;
 
@@ -17,14 +18,34 @@ class ModuleController extends Controller
         $modules = Module::orderBy('id', 'desc')->paginate(10);
         $moduleCates = ModuleCategory::all();
         foreach ($modules as $value){
-            if($value->parent_id > 0){
-                $module = Module::find($value->parent_id);
-                if($module){
-                    $value->parent_name = $module->name;
+            if($value->module_cate_id > 0){
+                $category = ModuleCategory::find($value->module_cate_id);
+                if($category){
+                    $value->categoryName = $category->name;
+                }
+            }
+            if($value->module_version_id){
+                $moduleVersion = ModuleVersion::find($value->module_version_id);
+                if($moduleVersion){
+                    $value->moduleName = $moduleVersion->name;
+                    $value->version = $moduleVersion->version;
                 }
             }
         }
+
         return view('admin.modules.index', compact(['modules', 'moduleCates']));
+    }
+
+    public function getModuleVersion($moduleId)
+    {
+        $module         = Module::find($moduleId);
+        if($module){
+            if($module->module_version_id){
+                $moduleVersion = ModuleVersion::where([['status',1],['id',$module->module_version_id]])->get();
+                return $moduleVersion;
+            }
+        }
+
     }
 
     public function create()
@@ -57,10 +78,18 @@ class ModuleController extends Controller
             Session::flash('error', 'Cannot create module version!');
             return back();
         }
-
+        $module = Module::find($data['moduleId']);
+        if($module){
+            $module->update(['module_version_id',$moduleVersion->id]);
+        }
+        $dataModule = [
+            '_token' => $data['_token'],
+            'module_version_id' => $moduleVersion->id,
+        ];
+        $module->update($dataModule);
         Session::flash('success', 'Create module version successfully!');
         return back();
-       // return redirect(route('module.index'));
+        // return redirect(route('module.index'));
     }
 
     public function show($id)

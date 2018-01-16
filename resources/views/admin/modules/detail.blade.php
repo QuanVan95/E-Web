@@ -18,6 +18,8 @@
                         <form action="{{route('module.addVersion')}}" id="submit-version" class="form-horizontal" method="post" enctype="multipart/form-data">
                             {{csrf_field()}}
                             <input type="hidden" class="form-control" id="attribute" name="attribute" ></input>
+                            <input type="hidden" class="form-control" id="api" name="api" ></input>
+                            <input type="hidden" class="form-control" name="moduleId" value="{{$module->id}}"></input>
                             <div class="form-body">
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Category </label>
@@ -80,9 +82,9 @@
                                             <th >Description</th>
                                             <th >Example Value(s)</th>
                                             <th >Required/Defaults</th>
-                                            <th>F</th>
-                                            <th >C</th>
-                                            <th >I</th>
+                                            <th id="width-attribute">F</th>
+                                            <th id="width-attribute">C</th>
+                                            <th id="width-attribute">I</th>
                                             <th></th>
                                         </tr>
                                         </thead>
@@ -93,9 +95,9 @@
                                             <td><input type="text" class="attribute_description" ></td>
                                             <td><input type="text" class="example_value"></td>
                                             <td><input type="text" class="required_default"></td>
-                                            <td><input type="text" class="f" > </td>
-                                            <td><input type="text" class="c" > </td>
-                                            <td><input type="text" class="r" > </td>
+                                            <td><input type="text" class="f" ></td>
+                                            <td><input type="text" class="c" ></td>
+                                            <td><input type="text" class="r" ></td>
                                             <td></td>
                                         </tr>
                                         </tbody>
@@ -122,11 +124,11 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td><input type = "text" class="api-method" ></td>
-                                            <td><input type="text" class="api-url"  ></td>
-                                            <td><input type="text" class="api-description" ></td>
-                                            <td><input type="text" class="api-doc-updated"></td>
-                                            <td><input type="text" class="api-status"></td>
+                                            <td><input type = "text" class="api-method" id="width-api" ></td>
+                                            <td><input type="text" class="api-url" id="width-api" ></td>
+                                            <td><input type="text" class="api-description" id="width-api" ></td>
+                                            <td><input type="text" class="api-doc-updated" id="width-api"></td>
+                                            <td><input type="text" class="api-status" id="width-api"></td>
                                             <td></td>
                                         </tr>
                                         </tbody>

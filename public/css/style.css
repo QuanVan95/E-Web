@@ -1,6 +1,10 @@
 .btn-add  {
     float:right;
 }
+
+#width-api {
+    width:100%;
+}
 /*.x_panel {*/
     /*position: relative;*/
     /*width: 100%;*/
