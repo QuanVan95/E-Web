@@ -15,6 +15,7 @@ class CreateModuleVersionsTable extends Migration
             $table->float('version')->default(1);
             $table->integer('status')->default(0);
             $table->text('attribute')->nullable();
+            $table->integer('module_id');
             $table->text('api')->nullable();
             $table->integer('created_by')->default(0);
             $table->integer('updated_by')->default(0);

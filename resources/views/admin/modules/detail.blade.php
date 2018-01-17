@@ -61,10 +61,10 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Status </label>
                                     <div class="col-md-4">
-                                        <select class ="form-control" name="status">
-                                            <option value="1">Public</option>
-                                            <option value="2">Draft</option>
-                                            <option value="3">??</option>
+                                        <select class ="form-control" name="status" >
+                                            <option value="1" selected>Public</option>
+                                            <option value="2" disabled="disabled">Draft</option>
+                                            <option value="3" disabled="disabled">Ready</option>
                                         </select>
                                     </div>
 

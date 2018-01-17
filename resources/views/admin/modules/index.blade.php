@@ -48,7 +48,7 @@
                                 @foreach($modules as $key => $value)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
-                                        <td>{{ $value->moduleName }}</td>
+                                        <td><a href = "{{ route('module.detail',$value->id )}}" >{{ $value->moduleName}}</a></td>
                                         <td>{{ $value->categoryName}}</td>
                                         <td>{{ $value->version}}</td>
                                         {{--<td>{{ $value->module->version}}</td>--}}

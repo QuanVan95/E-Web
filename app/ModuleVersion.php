@@ -8,6 +8,6 @@ class ModuleVersion extends Model
 {
     protected $table = 'module_versions';
     public $fillable = [
-        'name', 'description', 'version', 'status', 'attribute', 'api', 'created_by', 'updated_by'
+        'name', 'description', 'version', 'status', 'attribute','module_id', 'api', 'created_by', 'updated_by'
     ];
 }

@@ -15,12 +15,11 @@
                 <div class="portlet light bordered">
                     <div class="portlet-body">
                         <!-- BEGIN FORM-->
-                        <form action="{{route('module.editVersion')}}" id="submit-version" class="form-horizontal" method="post" enctype="multipart/form-data">
+                        <form action="" id="submit-version" class="form-horizontal" method="post" enctype="multipart/form-data">
                             {{csrf_field()}}
                             <input type="hidden" class="form-control" id="attribute" name="attribute" />
                             <input type="hidden" class="form-control" id="api" name="api" />
                             <input type="hidden" class="form-control" name="moduleId" value="{{$module->id}}" />
-                            <input type="hidden" class="form-control" name="newModuleVersionId" value="{{ (!empty($newModuleVersionId) ? $newModuleVersionId : 0) }}" />
                             <div class="form-body">
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Category </label>
@@ -37,46 +36,46 @@
                                         </select>
                                     </div>
                                 </div>
-                                @if( !empty($newModuleVer) )
+                                @if( !empty($moduleVersion) )
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Name </label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control" name="name" placeholder="Description" value = "{{$newModuleVer->name}}" />
+                                        <input type="text" class="form-control" name="name" placeholder="Description" value = "{{$moduleVersion->name}}" disabled/>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Description </label>
                                     <div class="col-md-4">
-                                        <textarea type="text" id="summernote" class="form-control" name="description" placeholder="Description" >{{$newModuleVer->description}}</textarea>
+                                        <textarea type="text" id="summernote" class="form-control" name="description" placeholder="Description">{{$moduleVersion->description }}</textarea>
                                     </div>
                                 </div>
-
+nn
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Version </label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control" disabled="disabled" name="version" placeholder="Description" value ="{{$newModuleVer->version}}" />
+                                        <input type="text" class="form-control" disabled="disabled" name="version" placeholder="Description" value ="{{$moduleVersion->version}}" disabled/>
                                     </div>
                                 </div>
                                 @else
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Name </label>
                                         <div class="col-md-4">
-                                            <input type="text" class="form-control" name="name" placeholder="Description"  />
+                                            <input type="text" class="form-control" name="name" placeholder="Description"  disabled/>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Description </label>
                                         <div class="col-md-4">
-                                            <textarea type="text" id="summernote" class="form-control" name="description" placeholder="Description"></textarea>
+                                            <textarea type="text" id="summernote" class="form-control" name="description" placeholder="Description" disabled="disabled"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Version </label>
                                         <div class="col-md-4">
-                                            <input type="text" class="form-control" disabled="disabled" name="version" placeholder="Description" />
+                                            <input type="text" class="form-control" disabled="disabled" name="version" placeholder="Description" disabled/>
                                         </div>
                                     </div>
                                 @endif
@@ -84,7 +83,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Status </label>
                                     <div class="col-md-4">
-                                    <select class ="form-control" name="status">
+                                    <select class ="form-control" name="status" disabled>
                                         <option value="1">Public</option>
                                         <option value="2" selected>Draft</option>
                                         <option value="3" disabled>Ready</option>
@@ -141,7 +140,7 @@
                                         </tbody>
                                     </table>
                                     <div align="right">
-                                        <button type="button" name="add-attribute" id='add-attribute' class="btn btn-success btn-xs add-attribute">+</button>
+                                        {{--<button type="button" name="add-attribute" id='add-attribute' class="btn btn-success btn-xs add-attribute">+</button>--}}
                                     </div>
                                     <div id="inserted_item_data"></div>
                                 </div>
@@ -186,7 +185,7 @@
 
                                     </table>
                                     <div align="right">
-                                        <button type="button" name="add-api" id="add-api" class="btn btn-success btn-xs add-api">+</button>
+                                        {{--<button type="button" name="add-api" id="add-api" class="btn btn-success btn-xs add-api">+</button>--}}
                                     </div>
                                     <div id="inserted_item_data"></div>
                                 </div>
@@ -194,7 +193,6 @@
                                 <div class="form-actions">
                                     <div class="row">
                                         <div class="col-md-offset-3 col-md-4">
-                                            <button type="button" id="addVersion" class="btn green ajax-add">Update </button>
                                             <a href="{{ route('module.index') }}" class="btn default">Back </a>
                                         </div>
                                     </div>
@@ -206,6 +204,4 @@
             </div>
             <!-- END PAGE BASE CONTENT -->
         </div>
-        <script>
-        </script>
 @endsection

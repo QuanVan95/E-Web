@@ -78,10 +78,9 @@ Route::group(['middleware' => 'validateBackHistory'], function () {
             Route::get('/create', ['as' => 'module.create', 'uses' => 'Backend\ModuleController@create']);
             Route::get('/module-detail/{id}', ['as' => 'module.detail', 'uses' => 'Backend\ModuleController@show']);
             Route::post('/module-versions', ['as' => 'module.addVersion', 'uses' => 'Backend\ModuleController@storeVersion']);
-            Route::post('/module-versions/edit', ['as' => 'module.editVersion', 'uses' => 'Backend\ModuleController@storeNewVersion']);
+            Route::post('/module-versions/edit', ['as' => 'module.editVersion', 'uses' => 'Backend\ModuleController@updateNewVersion']);
             Route::get('/detail/{id}', ['as' => 'module.modifyVersion', 'uses' => 'Backend\ModuleController@editVersion']);
             Route::post('/', ['as' => 'module.add', 'uses' => 'Backend\ModuleController@store']);
-            Route::post('/update/{id}', ['as' => 'module.update', 'uses' => 'Backend\ModuleController@update']);
             Route::get('/{id}',['as' => 'module.delete', 'uses' => 'Backend\ModuleController@destroy']);
         });
         Route::group(['prefix' => 'member'], function (){
