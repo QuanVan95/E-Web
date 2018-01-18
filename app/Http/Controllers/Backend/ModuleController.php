@@ -47,12 +47,6 @@ class ModuleController extends Controller
         }
     }
 
-    public function create()
-    {
-        $moduleCates = ModuleCategory::all();
-        return view('admin.modules.detail', compact('moduleCates'));
-    }
-
     public function store(Request $request)
     {
         $data = $request->all();

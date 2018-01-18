@@ -77,7 +77,6 @@ class LoginController extends Controller
         }else{
             return back()->withErrors(['message' => 'Incorrect username or password']);
         }
-
     }
 
     protected function logout(){

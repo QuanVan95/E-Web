@@ -24,14 +24,7 @@ Route::group(['middleware' => 'validateBackHistory'], function () {
     Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::get('/', ['as' => 'home', 'uses' => 'Backend\HomeController@index']);
         Route::post('/upload', ['as' => 'upload', 'uses' => 'Backend\UploadController@store']);
-        Route::group(['prefix' => 'banners'], function () {
-            Route::get('/', ['as' => 'banner.index', 'uses' => 'Backend\BannerController@index']);
-            Route::get('/create', ['as' => 'banner.create', 'uses' => 'Backend\BannerController@create']);
-            Route::post('/add', ['as' => 'banner.add', 'uses' => 'Backend\BannerController@store']);
-            Route::get('/detail/{id}', ['as' => 'banner.detail', 'uses' => 'Backend\BannerController@show']);
-            Route::post('/update/{id}', ['as' => 'banner.update', 'uses' => 'Backend\BannerController@update']);
-            Route::get('/{id}', ['as' => 'banner.delete', 'uses' => 'Backend\BannerController@destroy']);
-        });
+
         Route::group(['prefix' => 'config'], function (){
             Route::get('/', ['as' => 'config.index', 'uses' => 'Backend\ConfigController@index']);
 //        Route::get('/create', ['as' => 'config.create', 'uses' => 'Backend\ConfigController@create']);
@@ -48,23 +41,6 @@ Route::group(['middleware' => 'validateBackHistory'], function () {
             Route::post('/update/{id}', ['as' => 'gallery.update', 'uses' => 'Backend\GalleryController@update']);
             Route::get('/{id}',['as' => 'gallery.delete', 'uses' => 'Backend\GalleryController@destroy']);
         });
-
-        Route::group(['prefix' => 'posts'], function (){
-            Route::get('/', ['as' => 'post.index', 'uses' => 'Backend\PostController@index']);
-            Route::get('/create', ['as' => 'post.create', 'uses' => 'Backend\PostController@create']);
-            Route::get('/detail/{id}', ['as' => 'post.detail', 'uses' => 'Backend\PostController@show']);
-            Route::post('/add', ['as' => 'post.add', 'uses' => 'Backend\PostController@store']);
-            Route::post('/update/{id}', ['as' => 'post.update', 'uses' => 'Backend\PostController@update']);
-            Route::get('/{id}',['as' => 'post.delete', 'uses' => 'Backend\PostController@destroy']);
-        });
-        Route::group(['prefix' => 'post_categories'], function (){
-            Route::get('/', ['as' => 'postCate.index', 'uses' => 'Backend\PostCategoryController@index']);
-            Route::get('/create', ['as' => 'postCate.create', 'uses' => 'Backend\PostCategoryController@create']);
-            Route::get('/detail/{id}', ['as' => 'postCate.detail', 'uses' => 'Backend\PostCategoryController@show']);
-            Route::post('/add', ['as' => 'postCate.add', 'uses' => 'Backend\PostCategoryController@store']);
-            Route::post('/update/{id}', ['as' => 'postCate.update', 'uses' => 'Backend\PostCategoryController@update']);
-            Route::get('/{id}',['as' => 'postCate.delete', 'uses' => 'Backend\PostCategoryController@destroy']);
-        });
         Route::group(['prefix' => 'module_categories'], function (){
             Route::get('/', ['as' => 'moduleCate.index', 'uses' => 'Backend\ModuleCategoryController@index']);
             Route::get('/create', ['as' => 'moduleCate.create', 'uses' => 'Backend\ModuleCategoryController@create']);
@@ -75,10 +51,9 @@ Route::group(['middleware' => 'validateBackHistory'], function () {
         });
         Route::group(['prefix' => 'modules'], function (){
             Route::get('/', ['as' => 'module.index', 'uses' => 'Backend\ModuleController@index']);
-            Route::get('/create', ['as' => 'module.create', 'uses' => 'Backend\ModuleController@create']);
             Route::get('/module-detail/{id}', ['as' => 'module.detail', 'uses' => 'Backend\ModuleController@show']);
             Route::post('/module-versions', ['as' => 'module.addVersion', 'uses' => 'Backend\ModuleController@storeVersion']);
-            Route::post('/module-versions/edit', ['as' => 'module.editVersion', 'uses' => 'Backend\ModuleController@updateNewVersion']);
+            Route::post('/module-versions/edit', ['as' => 'module.updateVersion', 'uses' => 'Backend\ModuleController@updateNewVersion']);
             Route::get('/detail/{id}', ['as' => 'module.modifyVersion', 'uses' => 'Backend\ModuleController@editVersion']);
             Route::post('/', ['as' => 'module.add', 'uses' => 'Backend\ModuleController@store']);
             Route::get('/{id}',['as' => 'module.delete', 'uses' => 'Backend\ModuleController@destroy']);

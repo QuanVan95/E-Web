@@ -15,7 +15,7 @@
                 <div class="portlet light bordered">
                     <div class="portlet-body">
                         <!-- BEGIN FORM-->
-                        <form action="{{route('module.editVersion')}}" id="submit-version" class="form-horizontal" method="post" enctype="multipart/form-data">
+                        <form action="{{route('module.updateVersion')}}" id="submit-version" class="form-horizontal" method="post" enctype="multipart/form-data">
                             {{csrf_field()}}
                             <input type="hidden" class="form-control" id="attribute" name="attribute" />
                             <input type="hidden" class="form-control" id="api" name="api" />
